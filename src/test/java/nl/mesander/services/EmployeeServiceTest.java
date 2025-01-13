@@ -5,11 +5,11 @@ import nl.mesander.dtos.input.EmployeeInputDto;
 import nl.mesander.dtos.input.MultipleEmployeeInputDto;
 import nl.mesander.dtos.output.EmployeeDto;
 import nl.mesander.exceptions.IllegalArgumentException;
+import nl.mesander.exceptions.RecordNotFoundException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-
 import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
@@ -24,6 +24,7 @@ class EmployeeServiceTest {
     List<EmployeeInputDto> mockEmployeeInputDtos;
     List<EmployeeDto> mockEmployeeDtos;
 
+    MultipleEmployeeInputDto mockMultipleEmployeeInputDtoEmpty;
     MultipleEmployeeInputDto mockMultipleEmployeeInputDto;
 
     String testFileLocationSuccess;
@@ -67,6 +68,7 @@ class EmployeeServiceTest {
         mockEmployeeInputDtos.add(mockEmployeeInputDto1);
         mockEmployeeInputDtos.add(mockEmployeeInputDto2);
 
+        mockMultipleEmployeeInputDtoEmpty = new MultipleEmployeeInputDto();
         mockMultipleEmployeeInputDto = new MultipleEmployeeInputDto();
         mockMultipleEmployeeInputDto.setEmployees(mockEmployeeInputDtos);
 
@@ -97,8 +99,11 @@ class EmployeeServiceTest {
         mockEmployeeInputDtos = null;
         mockEmployeeDtos = null;
         mockMultipleEmployeeInputDto = null;
+        mockMultipleEmployeeInputDtoEmpty = null;
         testFileLocationSuccess = "";
+        testFileLocationEmpty = "";
         testFileLocationNotFound = "";
+        testFileLocationInvalid = "";
         mockJsonStringSuccess = "";
         mockJsonStringException = "";
     }
@@ -195,40 +200,43 @@ class EmployeeServiceTest {
         assertTrue(actualMessage.contains(expectedMessage), "Expected message should contain actual message");
     }
 
-    //    @Test
-//    @DisplayName("Should transfer XML file to EmployeeInputDto")
-//    void xmlToJava() {
-//        // Arrange
-//        // BeforeEach init String: testFileLocation
-//
-//        // Act
-//        EmployeeInputDto result = EmployeeService.xmlToJava(testFileLocation);
-//
-//        // Assert
-//        assertEquals("Mark Mesander Test", result.getName());
-//        assertEquals("Junior Java Developer Test", result.getFunction());
-//        assertEquals("Copernicus Test", result.getCompany());
-//        assertEquals("Absolutely", result.getToHire());
-//    }
-
+    // Transfer MultipleEmployeesInputDto to Dto Tests
     @Test
     @DisplayName("Should transfer multiple EmployeeInputDto's to List of EmployeeDto's")
     void multipleEmployeesToDto_Success() {
         // Arrange
+        // BeforeEach init MultipleEmployeeInputDto: mockMultipleEmployeeInputDto
 
         // Act
+        List<EmployeeDto> result = EmployeeService.multipleEmployeesToDto(mockMultipleEmployeeInputDto);
 
         // Assert
+        assertEquals("Mark Test", result.get(0).getName());
+        assertEquals("Junior Java Developer Test", result.get(0).getFunction());
+        assertEquals("Copernicus Test", result.get(0).getCompany());
+        assertEquals("Absolutely", result.get(0).getIsHired());
+        assertEquals("David Test", result.get(1).getName());
+        assertEquals("Eindbaas Java Developer", result.get(1).getFunction());
+        assertEquals("Copernicus Test", result.get(1).getCompany());
+        assertEquals("Yes", result.get(1).getIsHired());
     }
 
     @Test
     @DisplayName("Should throw exception: No employees found")
     void multipleEmployeesToDto_Exception_WhenNotFound() {
         // Arrange
+        // BeforeEach init MultipleEmployeeInputDto: mockMultipleEmployeeInputDtoEmpty
 
         // Act
+        Exception exception = assertThrows(RecordNotFoundException.class, () -> {
+            EmployeeService.multipleEmployeesToDto(mockMultipleEmployeeInputDtoEmpty);
+        });
 
         // Assert
+        String expectedMessage = "No employees found";
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
     }
 
     //    @Test

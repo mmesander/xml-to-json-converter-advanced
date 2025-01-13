@@ -63,6 +63,10 @@ public class EmployeeService {
     }
 
     public static List<EmployeeDto> multipleEmployeesToDto(MultipleEmployeeInputDto inputDto) {
+        if (inputDto.getEmployees() == null || inputDto.getEmployees().isEmpty()) {
+            throw new RecordNotFoundException("No employees found");
+        }
+
         List<EmployeeDto> employeeDtos = new ArrayList<>();
 
         for (EmployeeInputDto employeeInputDto : inputDto.getEmployees()) {
@@ -70,11 +74,7 @@ public class EmployeeService {
             employeeDtos.add(employeeDto);
         }
 
-        if (employeeDtos.isEmpty()) {
-            throw new RecordNotFoundException("No employees found");
-        } else {
-            return employeeDtos;
-        }
+        return employeeDtos;
     }
 
     public static String javaToJson(List<EmployeeDto> employeeDtos) {
