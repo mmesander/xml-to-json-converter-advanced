@@ -9,6 +9,7 @@ import java.util.List;
 public class MultipleEmployeeInputDto {
     private List<EmployeeInputDto> employees;
 
+    // Getters and Setters
     @XmlElement(name = "Employee")
     public List<EmployeeInputDto> getEmployees() {
         return employees;

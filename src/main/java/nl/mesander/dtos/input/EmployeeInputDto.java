@@ -11,6 +11,7 @@ public class EmployeeInputDto {
     private String company;
     private String toHire;
 
+    // Getters and Setters
     @XmlElement
     public String getName() {
         return name;
