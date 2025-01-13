@@ -2,44 +2,101 @@ package nl.mesander.services;
 
 // Imports
 import nl.mesander.dtos.input.EmployeeInputDto;
+import nl.mesander.dtos.input.MultipleEmployeeInputDto;
 import nl.mesander.dtos.output.EmployeeDto;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class EmployeeServiceTest {
-    EmployeeInputDto mockEmployeeInputDto;
-    EmployeeDto mockEmployeeDto;
-    String testFileLocation;
-    String mockJsonString;
+    EmployeeInputDto mockEmployeeInputDto1;
+    EmployeeInputDto mockEmployeeInputDto2;
+
+    EmployeeDto mockEmployeeDto1;
+    EmployeeDto mockEmployeeDto2;
+
+    List<EmployeeInputDto> mockEmployeeInputDtos;
+    List<EmployeeDto> mockEmployeeDtos;
+
+    MultipleEmployeeInputDto mockMultipleEmployeeInputDto;
+
+    String testFileLocationSuccess;
+    String testFileLocationEmpty;
+    String testFileLocationNotFound;
+
+    String mockJsonStringSuccess;
+    String mockJsonStringException;
 
     @BeforeEach
     void init() {
-        mockEmployeeInputDto = new EmployeeInputDto();
-        mockEmployeeInputDto.setName("Mark Test");
-        mockEmployeeInputDto.setFunction("Junior Java Developer Test");
-        mockEmployeeInputDto.setCompany("Copernicus Test");
-        mockEmployeeInputDto.setToHire("Absolutely");
+        // Input Dto
+        mockEmployeeInputDto1 = new EmployeeInputDto();
+        mockEmployeeInputDto1.setName("Mark Test");
+        mockEmployeeInputDto1.setFunction("Junior Java Developer Test");
+        mockEmployeeInputDto1.setCompany("Copernicus Test");
+        mockEmployeeInputDto1.setToHire("Absolutely");
 
-        testFileLocation = "src/test/resources/EmployeeTest.xml";
+        mockEmployeeInputDto2 = new EmployeeInputDto();
+        mockEmployeeInputDto2.setName("David Test");
+        mockEmployeeInputDto2.setFunction("Eindbaas Java Developer");
+        mockEmployeeInputDto2.setCompany("Copernicus Test");
+        mockEmployeeInputDto2.setToHire("Yes");
 
-        mockJsonString = "{\"name\":\"Mark Super Test\",\"function\":\"Medior Java Developer Test\",\"company\":\"Copernicus Super Test\",\"isHired\":\"100% Yes\"}";
+        // Output Dto
+        mockEmployeeDto1 = new EmployeeDto();
+        mockEmployeeDto1.setName("Mark Super Test");
+        mockEmployeeDto1.setFunction("Medior Java Developer Test");
+        mockEmployeeDto1.setCompany("Copernicus Maximus");
+        mockEmployeeDto1.setIsHired("100% Yes");
 
-        mockEmployeeDto = new EmployeeDto();
-        mockEmployeeDto.setName("Mark Super Test");
-        mockEmployeeDto.setFunction("Medior Java Developer Test");
-        mockEmployeeDto.setCompany("Copernicus Super Test");
-        mockEmployeeDto.setIsHired("100% Yes");
+        mockEmployeeDto2 = new EmployeeDto();
+        mockEmployeeDto2.setName("David Verloop Test");
+        mockEmployeeDto2.setFunction("Tech Lead Super Deluxe");
+        mockEmployeeDto2.setCompany("Copernicus Maximus");
+        mockEmployeeDto2.setIsHired("Already Hired Test");
+
+        // Multiple Input Dtos
+        mockEmployeeInputDtos = new ArrayList<>();
+        mockEmployeeInputDtos.add(mockEmployeeInputDto1);
+        mockEmployeeInputDtos.add(mockEmployeeInputDto2);
+
+        mockMultipleEmployeeInputDto.setEmployees(mockEmployeeInputDtos);
+
+        // Multiple Output Dtos
+        mockEmployeeDtos = new ArrayList<>();
+        mockEmployeeDtos.add(mockEmployeeDto1);
+        mockEmployeeDtos.add(mockEmployeeDto2);
+
+        // Location
+        testFileLocationSuccess = "src/test/resources/EmployeeTest.xml";
+        testFileLocationEmpty = "";
+        testFileLocationNotFound = "/src/test/resources/NotHere.xml";
+
+        //Json
+        mockJsonStringSuccess = "{\"name\":\"Mark Super Test\",\"function\":\"Medior Java Developer Test\",\"company\":\"Copernicus Super Test\",\"isHired\":\"100% Yes\"}";
+        mockJsonStringException = "";
+
+
     }
 
     @AfterEach
     void tearDown() {
-        mockEmployeeInputDto = null;
-        mockEmployeeDto = null;
-        testFileLocation = "";
-        mockJsonString = "";
+        mockEmployeeInputDto1 = null;
+        mockEmployeeInputDto2 = null;
+        mockEmployeeDto1 = null;
+        mockEmployeeDto2 = null;
+        mockEmployeeInputDtos = null;
+        mockEmployeeDtos = null;
+        mockMultipleEmployeeInputDto = null;
+        testFileLocationSuccess = "";
+        testFileLocationNotFound = "";
+        mockJsonStringSuccess = "";
+        mockJsonStringException = "";
     }
 
     @Test
