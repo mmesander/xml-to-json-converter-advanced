@@ -118,21 +118,41 @@ class EmployeeServiceTest {
     @Test
     @DisplayName("Should transfer Xml file to MultipleEmployeeInputDto")
     void XmlToJava_Success() {
+        // Arrange
+
+        // Act
+
+        // Assert
     }
 
     @Test
     @DisplayName("Should throw exception: file location is null/empty")
     void XmlToJava_Exception_WhenEmpty() {
+        // Arrange
+
+        // Act
+
+        // Assert
     }
 
     @Test
     @DisplayName("Should throw exception: File doesn't exist")
     void testXmlToJava_Exception_WhenDoesNotExist() {
+        // Arrange
+
+        // Act
+
+        // Assert
     }
 
     @Test
     @DisplayName("Should throw exception: Problem with unmarshalling file")
     void testXmlToJava_Exception_WhenJAXBException() {
+        // Arrange
+
+        // Act
+
+        // Assert
     }
 
     //    @Test
@@ -154,11 +174,21 @@ class EmployeeServiceTest {
     @Test
     @DisplayName("Should transfer multiple EmployeeInputDto's to List of EmployeeDto's")
     void multipleEmployeesToDto_Success() {
+        // Arrange
+
+        // Act
+
+        // Assert
     }
 
     @Test
     @DisplayName("Should throw exception: No employees found")
     void multipleEmployeesToDto_Exception_WhenNotFound() {
+        // Arrange
+
+        // Act
+
+        // Assert
     }
 
     //    @Test
@@ -179,15 +209,30 @@ class EmployeeServiceTest {
     @Test
     @DisplayName("Should transfer java to Json String")
     void testJavaToJson_Success() {
+        // Arrange
+
+        // Act
+
+        // Assert
     }
 
     @Test
     @DisplayName("Should throw exception: Can't be empty")
     void testJavaToJson_Exception_WhenEmpty() {
+        // Arrange
+
+        // Act
+
+        // Assert
     }
 
     @Test
     @DisplayName("Should throw exception: Problem with processing json")
     void testJavaToJson_Exception_WhenJsonProcessingException() {
+        // Arrange
+
+        // Act
+
+        // Assert
     }
 }
