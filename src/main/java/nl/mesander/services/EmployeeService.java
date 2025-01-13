@@ -7,6 +7,7 @@ import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.JAXBException;
 import jakarta.xml.bind.Unmarshaller;
 import nl.mesander.dtos.input.EmployeeInputDto;
+import nl.mesander.dtos.input.MultipleEmployeeInputDto;
 import nl.mesander.dtos.output.EmployeeDto;
 import java.io.File;
 
@@ -28,22 +29,22 @@ public class EmployeeService {
     }
 
     // Methods
-    public static EmployeeInputDto xmlToJava(String fileLocation) {
+    public static MultipleEmployeeInputDto xmlToJava(String fileLocation) {
         try {
             // Create file to make method universal
             File xmlFile = new File(fileLocation);
 
             // Create a new inputDto class
-            JAXBContext xmlContext = JAXBContext.newInstance(EmployeeInputDto.class);
+            JAXBContext xmlContext = JAXBContext.newInstance(MultipleEmployeeInputDto.class);
 
             // Create Unmarshaller for converting XML to Java (Marshaller for java to xml)
             Unmarshaller unmarshaller = xmlContext.createUnmarshaller();
 
             // Execute unmarshaller, unmarshaller provides an object
             // unmarshaller creates an object so use explicit cast to 'transfer' object to EmployeeInputDto
-            EmployeeInputDto employeeInputDto = (EmployeeInputDto) unmarshaller.unmarshal(xmlFile);
+            MultipleEmployeeInputDto employeeInputDtos = (MultipleEmployeeInputDto) unmarshaller.unmarshal(xmlFile);
 
-            return employeeInputDto;
+            return employeeInputDtos;
         } catch (JAXBException error) {
             error.printStackTrace();
             return null;
