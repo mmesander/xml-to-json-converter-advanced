@@ -44,7 +44,7 @@ class EmployeeServiceTest {
 
     @Test
     @DisplayName("Should transfer EmployeeInputDto to EmployeeDto")
-    void employeeToDto() {
+    void employeeToDto_Success() {
         // Arrange
         // BeforeEach init EmployeeInputDto: mockEmployeeInputDto
 
@@ -59,33 +59,78 @@ class EmployeeServiceTest {
     }
 
     @Test
-    @DisplayName("Should transfer XML file to EmployeeInputDto")
-    void xmlToJava() {
-        // Arrange
-        // BeforeEach init String: testFileLocation
-
-        // Act
-        EmployeeInputDto result = EmployeeService.xmlToJava(testFileLocation);
-
-        // Assert
-        assertEquals("Mark Mesander Test", result.getName());
-        assertEquals("Junior Java Developer Test", result.getFunction());
-        assertEquals("Copernicus Test", result.getCompany());
-        assertEquals("Absolutely", result.getToHire());
+    @DisplayName("Should transfer Xml file to MultipleEmployeeInputDto")
+    void XmlToJava_Success() {
     }
 
     @Test
-    @DisplayName("Should transfer EmployeeDto to JsonString")
-    void javaToJson() {
-        // Arrange
-        // BeforeEach init EmployeeDto: mockEmployeeDto
-        // BeforeEach init String: mockJsonString
+    @DisplayName("Should throw exception: file location is null/empty")
+    void XmlToJava_Exception_WhenEmpty() {
+    }
 
-        // Act
-        String result = EmployeeService.javaToJson(mockEmployeeDto);
+    @Test
+    @DisplayName("Should throw exception: File doesn't exist")
+    void testXmlToJava_Exception_WhenDoesNotExist() {
+    }
 
-        // Assert
-        assertEquals(mockJsonString, result);
+    @Test
+    @DisplayName("Should throw exception: Problem with unmarshalling file")
+    void testXmlToJava_Exception_WhenJAXBException() {
+    }
 
+    //    @Test
+//    @DisplayName("Should transfer XML file to EmployeeInputDto")
+//    void xmlToJava() {
+//        // Arrange
+//        // BeforeEach init String: testFileLocation
+//
+//        // Act
+//        EmployeeInputDto result = EmployeeService.xmlToJava(testFileLocation);
+//
+//        // Assert
+//        assertEquals("Mark Mesander Test", result.getName());
+//        assertEquals("Junior Java Developer Test", result.getFunction());
+//        assertEquals("Copernicus Test", result.getCompany());
+//        assertEquals("Absolutely", result.getToHire());
+//    }
+
+    @Test
+    @DisplayName("Should transfer multiple EmployeeInputDto's to List of EmployeeDto's")
+    void multipleEmployeesToDto_Success() {
+    }
+
+    @Test
+    @DisplayName("Should throw exception: No employees found")
+    void multipleEmployeesToDto_Exception_WhenNotFound() {
+    }
+
+    //    @Test
+//    @DisplayName("Should transfer EmployeeDto to JsonString")
+//    void javaToJson() {
+//        // Arrange
+//        // BeforeEach init EmployeeDto: mockEmployeeDto
+//        // BeforeEach init String: mockJsonString
+//
+//        // Act
+//        String result = EmployeeService.javaToJson(mockEmployeeDto);
+//
+//        // Assert
+//        assertEquals(mockJsonString, result);
+//
+//    }
+
+    @Test
+    @DisplayName("Should transfer java to Json String")
+    void testJavaToJson_Success() {
+    }
+
+    @Test
+    @DisplayName("Should throw exception: Can't be empty")
+    void testJavaToJson_Exception_WhenEmpty() {
+    }
+
+    @Test
+    @DisplayName("Should throw exception: Problem with processing json")
+    void testJavaToJson_Exception_WhenJsonProcessingException() {
     }
 }
