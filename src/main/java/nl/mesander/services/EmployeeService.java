@@ -10,8 +10,8 @@ import nl.mesander.dtos.input.EmployeeInputDto;
 import nl.mesander.dtos.input.MultipleEmployeeInputDto;
 import nl.mesander.dtos.output.EmployeeDto;
 import org.springframework.stereotype.Service;
-
 import java.io.File;
+import static nl.mesander.helpers.CopyProperties.copyProperties;
 
 @Service
 public class EmployeeService {
@@ -20,10 +20,7 @@ public class EmployeeService {
     public static EmployeeDto employeeToDto(EmployeeInputDto inputDto) {
         EmployeeDto employeeDto = new EmployeeDto();
 
-        // CopyProperties helper method optional
-        employeeDto.setName(inputDto.getName());
-        employeeDto.setFunction(inputDto.getFunction());
-        employeeDto.setCompany(inputDto.getCompany());
+        copyProperties(inputDto, employeeDto);
 
         // Changed variable
         employeeDto.setIsHired(inputDto.getToHire());
