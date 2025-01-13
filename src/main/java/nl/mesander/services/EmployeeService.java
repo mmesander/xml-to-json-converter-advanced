@@ -76,13 +76,13 @@ public class EmployeeService {
         }
     }
 
-    public static String javaToJson(EmployeeDto employeeDto) {
+    public static String javaToJson(List<EmployeeDto> employeeDtos) {
         try {
             // Create an instance of objectmapper from jackson
             ObjectMapper objectMapper = new ObjectMapper();
 
             // Convert Java object to JSON string
-            String jsonString = objectMapper.writeValueAsString(employeeDto);
+            String jsonString = objectMapper.writeValueAsString(employeeDtos);
 
             return jsonString;
         } catch (JsonProcessingException error) {

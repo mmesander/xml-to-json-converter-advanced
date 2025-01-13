@@ -41,25 +41,13 @@ public class Main {
             }
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//        if (employeeDto != null) {
-//            String jsonString = javaToJson(employeeDto);
-//            System.out.println("Json string: ");
-//            System.out.println(jsonString);
-//            System.out.println("------------------");
-//            System.out.println(" ");
-//        }
+        if (employeeDtos != null || !employeeDtos.isEmpty()) {
+            System.out.println("Json string: ");
+            System.out.println("------------------");
+            String jsonString = javaToJson(employeeDtos);
+            System.out.println(jsonString);
+            System.out.println("------------------");
+            System.out.println(" ");
+        }
     }
 }
