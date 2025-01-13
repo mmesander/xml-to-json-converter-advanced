@@ -9,9 +9,12 @@ import jakarta.xml.bind.Unmarshaller;
 import nl.mesander.dtos.input.EmployeeInputDto;
 import nl.mesander.dtos.input.MultipleEmployeeInputDto;
 import nl.mesander.dtos.output.EmployeeDto;
+import nl.mesander.exceptions.RecordNotFoundException;
 import org.springframework.stereotype.Service;
-
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import static nl.mesander.helpers.CopyProperties.copyProperties;
 
 @Service
 public class EmployeeService {
@@ -20,10 +23,7 @@ public class EmployeeService {
     public static EmployeeDto employeeToDto(EmployeeInputDto inputDto) {
         EmployeeDto employeeDto = new EmployeeDto();
 
-        // CopyProperties helper method optional
-        employeeDto.setName(inputDto.getName());
-        employeeDto.setFunction(inputDto.getFunction());
-        employeeDto.setCompany(inputDto.getCompany());
+        copyProperties(inputDto, employeeDto);
 
         // Changed variable
         employeeDto.setIsHired(inputDto.getToHire());
@@ -61,18 +61,36 @@ public class EmployeeService {
         }
     }
 
-    public static String javaToJson(EmployeeDto employeeDto) {
+    public static List<EmployeeDto> multipleEmployeesToDto(MultipleEmployeeInputDto inputDto) {
+        List<EmployeeDto> employeeDtos = new ArrayList<>();
+
+        for (EmployeeInputDto employeeInputDto : inputDto.getEmployees()) {
+            EmployeeDto employeeDto = employeeToDto(employeeInputDto);
+            employeeDtos.add(employeeDto);
+        }
+
+        if (employeeDtos.isEmpty()) {
+            throw new RecordNotFoundException("No employees found");
+        } else {
+            return employeeDtos;
+        }
+    }
+
+    public static String javaToJson(List<EmployeeDto> employeeDtos) {
+        if (employeeDtos == null || employeeDtos.isEmpty()) {
+            throw new RecordNotFoundException("EmployeeDto's can't be empty");
+        }
+
         try {
             // Create an instance of objectmapper from jackson
             ObjectMapper objectMapper = new ObjectMapper();
 
             // Convert Java object to JSON string
-            String jsonString = objectMapper.writeValueAsString(employeeDto);
+            String jsonString = objectMapper.writeValueAsString(employeeDtos);
 
             return jsonString;
         } catch (JsonProcessingException error) {
-            error.printStackTrace();
-            return null;
+            throw new IllegalArgumentException("Problem with processing json: " + error.getMessage());
         }
     }
 }
