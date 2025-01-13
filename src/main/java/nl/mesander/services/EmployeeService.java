@@ -9,8 +9,13 @@ import jakarta.xml.bind.Unmarshaller;
 import nl.mesander.dtos.input.EmployeeInputDto;
 import nl.mesander.dtos.input.MultipleEmployeeInputDto;
 import nl.mesander.dtos.output.EmployeeDto;
+import nl.mesander.dtos.output.MultipleEmployeeDto;
+import nl.mesander.exceptions.RecordNotFoundException;
 import org.springframework.stereotype.Service;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
 import static nl.mesander.helpers.CopyProperties.copyProperties;
 
 @Service
@@ -55,6 +60,21 @@ public class EmployeeService {
             return employeeInputDtos;
         } catch (JAXBException error) {
             throw new IllegalArgumentException("Problem with unmarshalling file " + fileLocation + ": " + error.getMessage());
+        }
+    }
+
+    public static List<EmployeeDto> employeesToDto(MultipleEmployeeInputDto inputDto) {
+        List<EmployeeDto> employeeDtos = new ArrayList<>();
+
+        for (EmployeeInputDto employeeInputDto : inputDto.getEmployees()) {
+            EmployeeDto employeeDto = employeeToDto(employeeInputDto);
+            employeeDtos.add(employeeDto);
+        }
+
+        if (employeeDtos.isEmpty()) {
+            throw new RecordNotFoundException("No employees found");
+        } else {
+            return employeeDtos;
         }
     }
 
