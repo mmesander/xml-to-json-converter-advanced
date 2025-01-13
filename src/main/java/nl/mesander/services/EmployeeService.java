@@ -31,7 +31,7 @@ public class EmployeeService {
     // Methods
     public static MultipleEmployeeInputDto xmlToJava(String fileLocation) {
         try {
-            // Create file to make method universal
+            // Create file to make method universal (not hardcoded)
             File xmlFile = new File(fileLocation);
 
             // Create a new inputDto class

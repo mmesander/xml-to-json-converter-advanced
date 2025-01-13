@@ -11,14 +11,24 @@ public class Main {
     public static void main(String[] args) {
         String fileLocation = "src/main/resources/Employees.xml";
         MultipleEmployeeInputDto employeeInputDtos = xmlToJava(fileLocation);
-        EmployeeDto employeeDto = null;
 
-        for (EmployeeInputDto employeeInputDto : employeeInputDtos.getEmployees()) {
-            System.out.println(employeeInputDto.getName());
-            System.out.println(employeeInputDto.getFunction());
-            System.out.println(employeeInputDto.getCompany());
-            System.out.println(employeeInputDto.getToHire());
+        if (employeeInputDtos != null && !employeeInputDtos.getEmployees().isEmpty()) {
+            for (EmployeeInputDto employeeInputDto : employeeInputDtos.getEmployees()) {
+                System.out.println("------------------");
+                System.out.println(employeeInputDto.getName());
+                System.out.println(employeeInputDto.getFunction());
+                System.out.println(employeeInputDto.getCompany());
+                System.out.println(employeeInputDto.getToHire());
+                System.out.println("------------------");
+                System.out.println(" ");
+            }
+        } else {
+            System.out.println("Employees not found for transfer xml to java");
+            System.out.println("------------------");
+            System.out.println(" ");
         }
+
+
 
 
 
