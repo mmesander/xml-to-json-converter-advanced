@@ -1,12 +1,14 @@
-<employees>
-    <employee>
+<Employees>
+    <Employee>
         <name>Mark Mesander</name>
         <function>Junior Java Developer</function>
         <company>Copernicus</company>
-    </employee>
-    <employee>
+        <toHire>Yes</toHire>
+    </Employee>
+    <Employee>
         <name>David Verloop</name>
         <function>Tech Lead</function>
         <company>Copernicus</company>
-    </employee>
-</employees>
+        <toHire>Yes</toHire>
+    </Employee>
+</Employees>

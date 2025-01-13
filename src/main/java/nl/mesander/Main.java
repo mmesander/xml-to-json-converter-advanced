@@ -9,7 +9,7 @@ import static nl.mesander.services.EmployeeService.*;
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        String fileLocation = "src/main/resources/Employee.xml";
+        String fileLocation = "src/main/resources/Employees.xml";
         MultipleEmployeeInputDto employeeInputDtos = xmlToJava(fileLocation);
         EmployeeDto employeeDto = null;
 
