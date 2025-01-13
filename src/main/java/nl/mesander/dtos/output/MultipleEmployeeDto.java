@@ -3,7 +3,6 @@ package nl.mesander.dtos.output;
 // Imports
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.List;
 
 @Getter
