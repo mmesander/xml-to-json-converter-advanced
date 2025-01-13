@@ -23,6 +23,8 @@ class EmployeeServiceTest {
 
     List<EmployeeInputDto> mockEmployeeInputDtos;
     List<EmployeeDto> mockEmployeeDtos;
+    List<EmployeeDto> mockEmployeeDtosEmpty;
+    List<EmployeeInputDto> mockEmployeeDtosInvalid;
 
     MultipleEmployeeInputDto mockMultipleEmployeeInputDtoEmpty;
     MultipleEmployeeInputDto mockMultipleEmployeeInputDto;
@@ -73,6 +75,7 @@ class EmployeeServiceTest {
         mockMultipleEmployeeInputDto.setEmployees(mockEmployeeInputDtos);
 
         // Multiple Output Dtos
+        mockEmployeeDtosEmpty = new ArrayList<>();
         mockEmployeeDtos = new ArrayList<>();
         mockEmployeeDtos.add(mockEmployeeDto1);
         mockEmployeeDtos.add(mockEmployeeDto2);
@@ -84,7 +87,7 @@ class EmployeeServiceTest {
         testFileLocationInvalid = "src/test/resources/EmployeeTestInvalid.xml";
 
         //Json
-        mockJsonStringSuccess = "{\"name\":\"Mark Super Test\",\"function\":\"Medior Java Developer Test\",\"company\":\"Copernicus Super Test\",\"isHired\":\"100% Yes\"}";
+        mockJsonStringSuccess = "[{\"name\":\"Mark Super Test\",\"function\":\"Medior Java Developer Test\",\"company\":\"Copernicus Maximus\",\"isHired\":\"100% Yes\"},{\"name\":\"David Verloop Test\",\"function\":\"Tech Lead Super Deluxe\",\"company\":\"Copernicus Maximus\",\"isHired\":\"Already Hired Test\"}]";
         mockJsonStringException = "";
 
 
@@ -97,6 +100,7 @@ class EmployeeServiceTest {
         mockEmployeeDto1 = null;
         mockEmployeeDto2 = null;
         mockEmployeeInputDtos = null;
+        mockEmployeeDtosEmpty = null;
         mockEmployeeDtos = null;
         mockMultipleEmployeeInputDto = null;
         mockMultipleEmployeeInputDtoEmpty = null;
@@ -200,7 +204,7 @@ class EmployeeServiceTest {
         assertTrue(actualMessage.contains(expectedMessage), "Expected message should contain actual message");
     }
 
-    // Transfer MultipleEmployeesInputDto to Dto Tests
+    // Transfer InputDto to OutputDto Tests
     @Test
     @DisplayName("Should transfer multiple EmployeeInputDto's to List of EmployeeDto's")
     void multipleEmployeesToDto_Success() {
@@ -239,48 +243,55 @@ class EmployeeServiceTest {
         assertEquals(expectedMessage, actualMessage);
     }
 
-    //    @Test
-//    @DisplayName("Should transfer EmployeeDto to JsonString")
-//    void javaToJson() {
-//        // Arrange
-//        // BeforeEach init EmployeeDto: mockEmployeeDto
-//        // BeforeEach init String: mockJsonString
-//
-//        // Act
-//        String result = EmployeeService.javaToJson(mockEmployeeDto);
-//
-//        // Assert
-//        assertEquals(mockJsonString, result);
-//
-//    }
-
+    // Transfer Java to JSON Tests
     @Test
     @DisplayName("Should transfer java to Json String")
     void testJavaToJson_Success() {
         // Arrange
+        // BeforeEach init List<EmployeeDto>: mockEmployeeDtos
+        // BeforeEach init String: mockJsonStringSucces
 
         // Act
+        String result = EmployeeService.javaToJson(mockEmployeeDtos);
 
         // Assert
+        assertEquals(mockJsonStringSuccess, result);
     }
 
     @Test
     @DisplayName("Should throw exception: Can't be empty")
     void testJavaToJson_Exception_WhenEmpty() {
         // Arrange
+        // BeforeEach init List<EmployeeDto>: mockEmployeeDtosEmpty
 
         // Act
+        Exception exception = assertThrows(RecordNotFoundException.class, () -> {
+            EmployeeService.javaToJson(mockEmployeeDtosEmpty);
+        });
 
         // Assert
+        String expectedMessage = "EmployeeDto's can't be empty";
+        String actualMessage = exception.getMessage();
+
+        assertEquals(expectedMessage, actualMessage);
     }
 
-    @Test
-    @DisplayName("Should throw exception: Problem with processing json")
-    void testJavaToJson_Exception_WhenJsonProcessingException() {
-        // Arrange
-
-        // Act
-
-        // Assert
-    }
+//    @Test
+//    @DisplayName("Should throw exception: Problem with processing json")
+//    void testJavaToJson_Exception_WhenJsonProcessingException() {
+//        // Arrange
+//        List<EmployeeDto> employeeDtosInvalid = List.of(new EmployeeDto());
+//
+//
+//        // Act
+//        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+//            EmployeeService.javaToJson(employeeDtosInvalid);
+//        });
+//
+//        // Assert
+//        String expectedMessage = "Problem with processing json: ";
+//        String actualmessage = exception.getMessage();
+//
+//        assertTrue(actualmessage.contains(expectedMessage), "Expected message should contain actual message");
+//    }
 }
