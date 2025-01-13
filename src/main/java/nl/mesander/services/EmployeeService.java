@@ -77,6 +77,10 @@ public class EmployeeService {
     }
 
     public static String javaToJson(List<EmployeeDto> employeeDtos) {
+        if (employeeDtos == null || employeeDtos.isEmpty()) {
+            throw new RecordNotFoundException("EmployeeDto's can't be empty");
+        }
+
         try {
             // Create an instance of objectmapper from jackson
             ObjectMapper objectMapper = new ObjectMapper();
@@ -86,8 +90,7 @@ public class EmployeeService {
 
             return jsonString;
         } catch (JsonProcessingException error) {
-            error.printStackTrace();
-            return null;
+            throw new IllegalArgumentException("Problem with processing json: " + error.getMessage());
         }
     }
 }
