@@ -63,7 +63,7 @@ public class EmployeeService {
         }
     }
 
-    public static List<EmployeeDto> employeesToDto(MultipleEmployeeInputDto inputDto) {
+    public static List<EmployeeDto> multipleEmployeesToDto(MultipleEmployeeInputDto inputDto) {
         List<EmployeeDto> employeeDtos = new ArrayList<>();
 
         for (EmployeeInputDto employeeInputDto : inputDto.getEmployees()) {
