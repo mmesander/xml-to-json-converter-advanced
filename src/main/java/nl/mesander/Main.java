@@ -12,7 +12,8 @@ public class Main {
         String fileLocation = "src/main/resources/Employees.xml";
         MultipleEmployeeInputDto employeeInputDtos = xmlToJava(fileLocation);
 
-        if (employeeInputDtos != null && !employeeInputDtos.getEmployees().isEmpty()) {
+        if (employeeInputDtos != null || !employeeInputDtos.getEmployees().isEmpty()) {
+            System.out.println("XML to Java: ");
             for (EmployeeInputDto employeeInputDto : employeeInputDtos.getEmployees()) {
                 System.out.println("------------------");
                 System.out.println(employeeInputDto.getName());
@@ -22,29 +23,13 @@ public class Main {
                 System.out.println("------------------");
                 System.out.println(" ");
             }
-        } else {
-            System.out.println("Employees not found for transfer xml to java");
-            System.out.println("------------------");
-            System.out.println(" ");
         }
 
 
 
 
 
-//        if (employeeInputDto != null) {
-//            System.out.println("XML naar Java: ");
-//            System.out.println(employeeInputDto.getName());
-//            System.out.println(employeeInputDto.getFunction());
-//            System.out.println(employeeInputDto.getCompany());
-//            System.out.println(employeeInputDto.getToHire());
-//            System.out.println("------------------");
-//            System.out.println(" ");
-//        } else {
-//            System.out.println("Employee not found for transfer xml to java");
-//            System.out.println("------------------");
-//            System.out.println(" ");
-//        }
+
 //
 //        if (employeeInputDto != null) {
 //            employeeDto = employeeToDto(employeeInputDto);
