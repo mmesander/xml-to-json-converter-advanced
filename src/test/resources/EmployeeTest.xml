@@ -1,6 +1,14 @@
-<Employee>
-    <name>Mark Mesander Test</name>
-    <function>Junior Java Developer Test</function>
-    <company>Copernicus Test</company>
-    <toHire>Absolutely</toHire>
-</Employee>
+<Employees>
+    <Employee>
+        <name>Mark Mesander Test</name>
+        <function>Medior Java Developer</function>
+        <company>Copernicus</company>
+        <toHire>absolutely</toHire>
+    </Employee>
+    <Employee>
+        <name>David Verloop</name>
+        <function>Tech Lead</function>
+        <company>Copernicus</company>
+        <toHire>Already Hired</toHire>
+    </Employee>
+</Employees>
