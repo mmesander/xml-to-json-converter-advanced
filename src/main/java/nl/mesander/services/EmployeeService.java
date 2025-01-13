@@ -9,8 +9,11 @@ import jakarta.xml.bind.Unmarshaller;
 import nl.mesander.dtos.input.EmployeeInputDto;
 import nl.mesander.dtos.input.MultipleEmployeeInputDto;
 import nl.mesander.dtos.output.EmployeeDto;
+import org.springframework.stereotype.Service;
+
 import java.io.File;
 
+@Service
 public class EmployeeService {
 
     // Transfer Methods
@@ -30,10 +33,18 @@ public class EmployeeService {
 
     // Methods
     public static MultipleEmployeeInputDto xmlToJava(String fileLocation) {
-        try {
-            // Create file to make method universal (not hardcoded)
-            File xmlFile = new File(fileLocation);
+        if (fileLocation == null || fileLocation.isEmpty()) {
+            throw new IllegalArgumentException("File location is null/empty");
+        }
 
+        // Create file to make method universal (not hardcoded)
+        File xmlFile = new File(fileLocation);
+
+        if (!xmlFile.exists() || !xmlFile.isFile()) {
+            throw new IllegalArgumentException("File: " + fileLocation + " doesn't exist");
+        }
+
+        try {
             // Create a new inputDto class
             JAXBContext xmlContext = JAXBContext.newInstance(MultipleEmployeeInputDto.class);
 
@@ -46,8 +57,7 @@ public class EmployeeService {
 
             return employeeInputDtos;
         } catch (JAXBException error) {
-            error.printStackTrace();
-            return null;
+            throw new IllegalArgumentException("Problem with unmarshalling file " + fileLocation + ": " + error.getMessage());
         }
     }
 
