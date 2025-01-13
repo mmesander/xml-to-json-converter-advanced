@@ -9,13 +9,11 @@ import jakarta.xml.bind.Unmarshaller;
 import nl.mesander.dtos.input.EmployeeInputDto;
 import nl.mesander.dtos.input.MultipleEmployeeInputDto;
 import nl.mesander.dtos.output.EmployeeDto;
-import nl.mesander.dtos.output.MultipleEmployeeDto;
 import nl.mesander.exceptions.RecordNotFoundException;
 import org.springframework.stereotype.Service;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 import static nl.mesander.helpers.CopyProperties.copyProperties;
 
 @Service
